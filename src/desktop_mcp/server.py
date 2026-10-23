@@ -15,8 +15,9 @@ import argparse
 
 from mcp.server.fastmcp import FastMCP
 
-from . import system_tools
-from .adapters import autocad, capcut
+from . import apps_catalog, system_tools
+from .adapters import autocad, capcut, cli_tools, office
+from .adapters import apps as apps_pkg
 
 HOST = "127.0.0.1"  # never bind beyond localhost: this server controls the machine
 PORT = 8765
@@ -25,8 +26,12 @@ PORT = 8765
 def build_server() -> FastMCP:
     mcp = FastMCP("desktop-mcp", host=HOST, port=PORT)
     system_tools.register(mcp)
+    apps_catalog.register(mcp)
     autocad.register(mcp)
     capcut.register(mcp)
+    office.register(mcp)
+    cli_tools.register(mcp)
+    apps_pkg.register_all(mcp)
     return mcp
 
 
