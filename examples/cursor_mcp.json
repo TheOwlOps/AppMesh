@@ -1,0 +1,1 @@
+{"mcpServers":{"appmesh":{"args":["-m","desktop_mcp.server"],"command":"C:\\Users\\YOUR_NAME\\AppMesh\\.venv\\Scripts\\python.exe","env":{"PYTHONPATH":"C:\\Users\\YOUR_NAME\\AppMesh\\src"}}}}

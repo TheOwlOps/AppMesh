@@ -1,0 +1,36 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "desktop-mcp"
+version = "0.1.0"
+description = "MCP server letting AI agents control desktop software on Windows (system tools + AutoCAD COM + CapCut draft editing)"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+    # Pinned <2: the code uses the v1 FastMCP API (mcp.server.fastmcp).
+    # mcp 2.x renamed FastMCP -> MCPServer with breaking API changes.
+    "mcp[cli]>=1.2,<2",
+]
+
+[project.optional-dependencies]
+windows = [
+    "pywin32>=306; sys_platform == 'win32'",
+    "pyautocad>=0.2.0; sys_platform == 'win32'",
+    "pywinauto>=0.6.8; sys_platform == 'win32'",
+    "pyautogui>=0.9.54; sys_platform == 'win32'",
+    "Pillow>=10.0",
+]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+desktop-mcp = "desktop_mcp.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/desktop_mcp"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
